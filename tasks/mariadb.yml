@@ -1,0 +1,27 @@
+- name: Nocodb | Install mariadb
+  package:
+    name: mariadb-server
+
+- name: Nocodb | Install package to manage mysql db
+  package:
+    name: python3-pymysql
+
+- name: Nocodb | Ensure mariadb is started
+  ansible.builtin.systemd:
+    name: mariadb
+    state: started
+    
+- name: Nocodb | Create {{ nocodb_db.name }} mysql database  
+  community.mysql.mysql_db:
+    name: "{{ nocodb_db.name }}"
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+
+- name: Nocodb | Create {{ nocodb_db.user }} db user with all privileges for {{ nocodb_db.name }} db
+  community.mysql.mysql_user:
+    name: "{{ nocodb_db.user }}"
+    password: "{{ vault_nocodb_mariadb }}"
+    priv: "{{ nocodb_db.name }}.*:ALL,GRANT"
+    state: present
+    login_unix_socket: /run/mysqld/mysqld.sock
+

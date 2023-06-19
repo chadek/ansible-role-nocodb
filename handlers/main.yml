@@ -1,0 +1,11 @@
+- name: Restart nocodb
+  ansible.builtin.systemd:
+    name: nocodb
+    state: restarted
+    daemon_reload: true
+
+- name: Start mariadb
+  ansible.builtin.systemd:
+    name: mariadb
+    state: restarted
+    daemon_reload: true

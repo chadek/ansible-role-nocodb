@@ -1,0 +1,38 @@
+---
+- name: Nocodb | Create user to run Nocodb
+  ansible.builtin.user:
+    name: "{{ nocodb_user.name }}"
+    system: 'yes'
+    append: 'yes'
+    shell: /bin/false
+
+- name: Nocodb | Ensure dir exists
+  ansible.builtin.file:
+    path: "{{ item.value }}"
+    state: directory
+    owner: "{{ nocodb_user.name }}"
+    group: "{{ nocodb_user.group}}"
+    mode: 0775
+  loop: "{{ nocodb_dir | dict2items }}"
+
+- name: Nocodb | Download nocodb binary
+  ansible.builtin.get_url:
+    url: http://get.nocodb.com/linux-x64
+    dest: "{{ nocodb_dir.bin }}/nocodb"
+    mode: '0755'
+
+- name: Nocodb | Setup environment variables
+  ansible.builtin.template:
+    src: env.j2
+    owner: "{{ nocodb_user.name }}"
+    group: "{{ nocodb_user.group}}"
+    dest: "{{ nocodb_dir.conf }}/.env"
+    mode: u=rw,g=r
+  notify: Restart nocodb
+
+- name: Nocodb | Setup systemd service
+  ansible.builtin.template:
+    src: nocodb.service.j2
+    dest: /etc/systemd/system/nocodb.service
+    mode: '0644'
+  notify: Restart nocodb

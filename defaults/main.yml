@@ -1,0 +1,49 @@
+---
+nocodb_dir: {
+  root: "/opt/nocodb",
+  data: "/opt/nocodb/data",
+  conf: "/opt/nocodb/conf",
+  bin: "/opt/nocodb/bin" 
+}
+
+nocodb_user: {
+  name: "nocodb",
+  group: "nocodb"
+}
+
+nocodb_url: "http://localhost:8080"
+nocodb_redis_url: "redis://127.0.0.1:6379"
+nocodb_invite_only_signup: "true"
+nocodb_disable_tele: "true"
+
+##### sqlite configuration
+# nocodb_backend: "sqlite"
+#############
+
+
+##### postgress configuration
+# nocodb_backend: "pg"
+
+# nocodb_db: {
+#   name: "nocodb",
+#   user: "nocodb",
+#   port: 5432
+# }
+
+# nocodb_db_url: "pg://localhost:{{ nocodb_db.port }}?d={{ nocodb_db.name }}&?host={{ postgresql_unix_socket_directories[0] }}"
+##########
+
+
+##### mariadb configuration
+nocodb_backend: "mariadb"
+
+nocodb_db: {
+  name: "nocodb",
+  user: "nocodb",
+  port: 3306
+}
+
+nocodb_db_url: "mysql2://localhost:{{ nocodb_db.port }}?user={{ nocodb_db.user }}&password={{ vault_nocodb_mariadb }}&d={{ nocodb_db.name }}"
+########
+
+### put this var into an ansible-vault : vault_nocodb_mariadb
