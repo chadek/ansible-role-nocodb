@@ -1,21 +1,21 @@
 ---
-#dependencies:
-#  - role: chadek.elasticsearch
-#  - role: geerlingguy.postgresql
+dependencies:
+ - role: geerlingguy.redis
+ - role: geerlingguy.postgresql
 
 galaxy_info:
   role_name: nocodb
   author: chadek
   description: ansible role to install nocodb for linux
-  company: your company (optional)
+  company: Free Like a lancer
   license: license GPL-3.0-only
   min_ansible_version: 2.1
   platforms:
   - name: Debian
     versions:
-    - stretch
     - buster
     - bullseye
+    - bookworm
   - name: Ubuntu
     versions:
     - xenial
@@ -24,3 +24,6 @@ galaxy_info:
 
   galaxy_tags:
     - nocodb
+    - noco
+    - airtable
+    - nocode
