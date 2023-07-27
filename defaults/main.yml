@@ -11,9 +11,14 @@ nocodb_user: {
   group: "nocodb"
 }
 
-nocodb_url: "http://localhost:8080"
-nocodb_redis_url: "redis://127.0.0.1:6379"
-nocodb_disable_tele: "true"
+
+## no need to configure NC_DB variable, it is dynamically generated depending on backend configuration
+nocodb_config: 
+  NC_PUBLIC_URL: "http://localhost:8080"
+  PORT: 8080
+  NC_DISABLE_TELE: true
+  NC_REDIS_URL: "redis://127.0.0.1:6379"
+
 
 ##### sqlite configuration
 nocodb_backend: "sqlite"
