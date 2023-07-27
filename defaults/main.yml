@@ -13,11 +13,10 @@ nocodb_user: {
 
 nocodb_url: "http://localhost:8080"
 nocodb_redis_url: "redis://127.0.0.1:6379"
-nocodb_invite_only_signup: "true"
 nocodb_disable_tele: "true"
 
 ##### sqlite configuration
-# nocodb_backend: "sqlite"
+nocodb_backend: "sqlite"
 #############
 
 
@@ -30,20 +29,23 @@ nocodb_disable_tele: "true"
 #   port: 5432
 # }
 
-# nocodb_db_url: "pg://localhost:{{ nocodb_db.port }}?d={{ nocodb_db.name }}&?host={{ postgresql_unix_socket_directories[0] }}"
+# nocodb_db_url: "pg://localhost:{{ nocodb_db.port }}?user={{ nocodb_db.user }}&password={{ vault_nocodb_db_password }}&d={{ nocodb_db.name }}"
+
+
 ##########
 
 
 ##### mariadb configuration
-nocodb_backend: "mariadb"
+# nocodb_backend: "mariadb"
 
-nocodb_db: {
-  name: "nocodb",
-  user: "nocodb",
-  port: 3306
-}
+# nocodb_db: {
+#   name: "nocodb",
+#   user: "nocodb",
+#   port: 3306
+# }
 
-nocodb_db_url: "mysql2://localhost:{{ nocodb_db.port }}?user={{ nocodb_db.user }}&password={{ vault_nocodb_mariadb }}&d={{ nocodb_db.name }}"
+# nocodb_db_url: "mysql2://localhost:{{ nocodb_db.port }}?user={{ nocodb_db.user }}&password={{ vault_nocodb_db_password }}&d={{ nocodb_db.name }}"
 ########
 
-### put this var into an ansible-vault : vault_nocodb_mariadb
+### put this var into an ansible-vault : vault_nocodb_db_password
+# vault_nocodb_db_password: dumtestpassword

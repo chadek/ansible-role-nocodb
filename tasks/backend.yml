@@ -2,9 +2,9 @@
 
 - name: Nocodb | Install sqlite
   package:
-    name: sqlite
+    name: sqlite3
   when: "nocodb_backend == 'sqlite' "
-
+  
 - include_tasks: postgresql.yml
   when: "nocodb_backend == 'pg' or nocodb_backend == 'postgresql'"
 

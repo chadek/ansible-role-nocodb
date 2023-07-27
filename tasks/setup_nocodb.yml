@@ -3,7 +3,6 @@
   ansible.builtin.user:
     name: "{{ nocodb_user.name }}"
     system: 'yes'
-    append: 'yes'
     shell: /bin/false
 
 - name: Nocodb | Ensure dir exists
@@ -14,6 +13,11 @@
     group: "{{ nocodb_user.group}}"
     mode: 0775
   loop: "{{ nocodb_dir | dict2items }}"
+
+- name: Nocodb | Include redis role
+  include_role:
+    name: geerlingguy.redis
+  when: "nocodb_redis_url is defined"
 
 - name: Nocodb | Download nocodb binary
   ansible.builtin.get_url:

@@ -20,7 +20,7 @@
 - name: Nocodb | Create {{ nocodb_db.user }} db user with all privileges for {{ nocodb_db.name }} db
   community.mysql.mysql_user:
     name: "{{ nocodb_db.user }}"
-    password: "{{ vault_nocodb_mariadb }}"
+    password: "{{ vault_nocodb_db_password }}"
     priv: "{{ nocodb_db.name }}.*:ALL,GRANT"
     state: present
     login_unix_socket: /run/mysqld/mysqld.sock

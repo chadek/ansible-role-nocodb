@@ -15,7 +15,9 @@ postgresql_users: [
   {
     name: "{{ nocodb_db.user }}",
     db: "{{ nocodb_db.name }}",
-    login_host: 'localhost'
+    password: "{{ vault_nocodb_db_password }}",
+    login_host: 'localhost',
+    state: present
   }
 ]
 

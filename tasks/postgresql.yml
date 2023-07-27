@@ -2,22 +2,3 @@
 - name: Nocodb | Include postgres role
   include_role:
     name: geerlingguy.postgresql
-
-- name: Nocodb | GRANT ALL PRIVILEGES ON DATABASE {{ nocodb_db.name }} TO {{ nocodb_db.user }} user
-  community.postgresql.postgresql_privs:
-    login_host: 'localhost'
-    login_user: 'postgres'
-    login_unix_socket: /var/run/postgresql
-    db: "{{ nocodb_db.name }}"
-    privs: ALL
-    type: database
-    role: "{{ nocodb_db.user }}"
-  become: true
-  become_user: "postgres"
-
-
-- name: Nocodb | Allow access to {{ nocodb_db.name }} db to {{ nocodb_db.user }} user on localhost without authentication
-  ansible.builtin.lineinfile:
-    path: /etc/postgresql/13/main/pg_hba.conf
-    line: "host {{ nocodb_db.name }} {{ nocodb_db.user }} 127.0.0.1/32   trust"
-    insertbefore: '^host all all 127.0.0.1/32   md5'
