@@ -24,6 +24,8 @@
     url: http://get.nocodb.com/linux-x64
     dest: "{{ nocodb_dir.bin }}/nocodb"
     mode: '0755'
+  notify: Restart nocodb
+
 
 - name: Nocodb | Setup environment variables
   ansible.builtin.template:
