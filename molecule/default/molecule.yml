@@ -4,7 +4,7 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: instance
+  - name: nocodb-sqlite
     image: "geerlingguy/docker-debian12-ansible:latest"
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
@@ -12,7 +12,37 @@ platforms:
     cgroupns_mode: host
     privileged: true
     pre_build_image: true
+  - name: nocodb-postregsql
+    image: "geerlingguy/docker-debian12-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    cgroupns_mode: host
+    privileged: true
+    pre_build_image: true
+  - name: nocodb-mariadb
+    image: "geerlingguy/docker-debian12-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    cgroupns_mode: host
+    privileged: true
+    pre_build_image: true    
 provisioner:
   name: ansible
+  inventory:
+    host_vars:
+      nocodb-sqlite:
+        nocodb_backend: "sqlite"
+      nocodb-postgresql-13:
+        nocodb_backend: "pg"
+        nocodb_db: { name: "nocodb", user: "nocodb", port: 5432 }
+        nocodb_db_url: "pg://localhost:{{ nocodb_db.port }}?user={{ nocodb_db.user }}&password={{ vault_nocodb_db_password }}&d={{ nocodb_db.name }}"
+        vault_nocodb_db_password: "dumtestpassword"
+      nocodb-mariadb:
+        nocodb_backend: "mariadb"
+        nocodb_db: { name: "nocodb", user: "nocodb", port: 3306 }
+        nocodb_db_url: "mysql2://localhost:{{ nocodb_db.port }}?user={{ nocodb_db.user }}&password={{ vault_nocodb_db_password }}&d={{ nocodb_db.name }}"
+        vault_nocodb_db_password: "dumtestpassword"
 verifier:
   name: ansible

@@ -9,44 +9,5 @@
       when: ansible_os_family == 'Debian'
       changed_when: false
 
-  tasks:
-    - include_role:
-        name: chadek.nocodb
-      vars:
-        nocodb_backend: "sqlite"
-
-- name: Converge
-  hosts: all
-  become: true
-
-  pre_tasks:
-    - name: Update apt cache
-      apt: update_cache=true cache_valid_time=600
-      when: ansible_os_family == 'Debian'
-      changed_when: false
-
-    - include_role:
-        name: chadek.nocodb
-      vars:
-        nocodb_backend: "pg"
-        nocodb_db: { name: "nocodb", user: "nocodb", port: 5432 }
-        nocodb_db_url: "pg://localhost:{{ nocodb_db.port }}?user={{ nocodb_db.user }}&password={{ vault_nocodb_db_password }}&d={{ nocodb_db.name }}"
-        vault_nocodb_db_password: "dumtestpassword"
-
-- name: Converge
-  hosts: all
-  become: true
-
-  pre_tasks:
-    - name: Update apt cache
-      apt: update_cache=true cache_valid_time=600
-      when: ansible_os_family == 'Debian'
-      changed_when: false
-
-    - include_role:
-        name: chadek.nocodb
-      vars:
-        nocodb_backend: "mariadb"
-        nocodb_db: { name: "nocodb", user: "nocodb", port: 3306 }
-        nocodb_db_url: "mysql2://localhost:{{ nocodb_db.port }}?user={{ nocodb_db.user }}&password={{ vault_nocodb_db_password }}&d={{ nocodb_db.name }}"
-        vault_nocodb_db_password: "dumtestpassword"
+  roles:
+    - role: chadek.nocodb
