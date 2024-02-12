@@ -13,3 +13,6 @@
     - name: "Include nocodb"
       include_role:
         name: "ansible-role-nocodb"
+
+  roles:
+    - role: chadek.nocodb
