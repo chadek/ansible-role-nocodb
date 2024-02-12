@@ -10,9 +10,23 @@
       changed_when: false
 
   tasks:
-    - name: "Include nocodb"
-      include_role:
-        name: "ansible-role-nocodb"
+    - include_role:
+        name: chadek.nocodb
+      vars:
+        nocodb_backend: "sqlite"
 
-  roles:
-    - role: chadek.nocodb
+    - include_role:
+        name: chadek.nocodb
+      vars:
+        nocodb_backend: "pg"
+        nocodb_db: { name: "nocodb", user: "nocodb", port: 5432 }
+        nocodb_db_url: "pg://localhost:{{ nocodb_db.port }}?user={{ nocodb_db.user }}&password={{ vault_nocodb_db_password }}&d={{ nocodb_db.name }}"
+        vault_nocodb_db_password: "dumtestpassword"
+
+    - include_role:
+        name: chadek.nocodb
+      vars:
+        nocodb_backend: "mariadb"
+        nocodb_db: { name: "nocodb", user: "nocodb", port: 3306 }
+        nocodb_db_url: "mysql2://localhost:{{ nocodb_db.port }}?user={{ nocodb_db.user }}&password={{ vault_nocodb_db_password }}&d={{ nocodb_db.name }}"
+        vault_nocodb_db_password: "dumtestpassword"
