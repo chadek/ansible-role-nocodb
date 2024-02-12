@@ -8,10 +8,8 @@
       apt: update_cache=true cache_valid_time=600
       when: ansible_os_family == 'Debian'
       changed_when: false
-        
+
   tasks:
     - name: "Include nocodb"
       include_role:
         name: "ansible-role-nocodb"
-
-        

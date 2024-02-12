@@ -2,7 +2,7 @@
 - name: Nocodb | Create user to run Nocodb
   ansible.builtin.user:
     name: "{{ nocodb_user.name }}"
-    system: 'yes'
+    system: "yes"
     shell: /bin/false
 
 - name: Nocodb | Ensure dir exists
@@ -23,9 +23,8 @@
   ansible.builtin.get_url:
     url: http://get.nocodb.com/linux-x64
     dest: "{{ nocodb_dir.bin }}/nocodb"
-    mode: '0755'
+    mode: "0755"
   notify: Restart nocodb
-
 
 - name: Nocodb | Setup environment variables
   ansible.builtin.template:
@@ -40,5 +39,5 @@
   ansible.builtin.template:
     src: nocodb.service.j2
     dest: /etc/systemd/system/nocodb.service
-    mode: '0644'
+    mode: "0644"
   notify: Restart nocodb

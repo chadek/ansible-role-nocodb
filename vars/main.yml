@@ -2,24 +2,26 @@
 # vars file for ansible-role-nocodb
 
 # postgresql role variables should be define in var directory otherwise it will not be taken in account
-postgresql_databases: [
-  {
-    name: "{{ nocodb_db.name }}",
-    login_host: 'localhost',
-    port: "{{ nocodb_db.port }}",
-    owner: "{{ nocodb_db.user }}",
-    state: present
-  }
-]  
-postgresql_users: [
-  {
-    name: "{{ nocodb_db.user }}",
-    db: "{{ nocodb_db.name }}",
-    password: "{{ vault_nocodb_db_password }}",
-    login_host: 'localhost',
-    state: present
-  }
-]
+postgresql_databases:
+  [
+    {
+      name: "{{ nocodb_db.name }}",
+      login_host: "localhost",
+      port: "{{ nocodb_db.port }}",
+      owner: "{{ nocodb_db.user }}",
+      state: present,
+    },
+  ]
+postgresql_users:
+  [
+    {
+      name: "{{ nocodb_db.user }}",
+      db: "{{ nocodb_db.name }}",
+      password: "{{ vault_nocodb_db_password }}",
+      login_host: "localhost",
+      state: present,
+    },
+  ]
 
 postgresql_unix_socket_directories:
   - /var/run/postgresql

@@ -1,23 +1,20 @@
 ---
-nocodb_dir: {
-  root: "/opt/nocodb",
-  data: "/opt/nocodb/data",
-  conf: "/opt/nocodb/conf",
-  bin: "/opt/nocodb/bin" 
-}
+nocodb_dir:
+  {
+    root: "/opt/nocodb",
+    data: "/opt/nocodb/data",
+    conf: "/opt/nocodb/conf",
+    bin: "/opt/nocodb/bin",
+  }
 
-nocodb_user: {
-  name: "nocodb",
-  group: "nocodb"
-}
+nocodb_user: { name: "nocodb", group: "nocodb" }
 
 ## no need to configure NC_DB variable, it is dynamically generated depending on backend configuration
-nocodb_config: 
+nocodb_config:
   NC_PUBLIC_URL: "http://localhost:8080"
   PORT: 8080
   NC_DISABLE_TELE: true
   NC_REDIS_URL: "redis://127.0.0.1:6379"
-
 
 ##### sqlite configuration
 nocodb_backend: "sqlite"

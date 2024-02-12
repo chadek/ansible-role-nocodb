@@ -10,8 +10,8 @@
   ansible.builtin.systemd:
     name: mariadb
     state: started
-    
-- name: Nocodb | Create {{ nocodb_db.name }} mysql database  
+
+- name: Nocodb | Create {{ nocodb_db.name }} mysql database
   community.mysql.mysql_db:
     name: "{{ nocodb_db.name }}"
     state: present
@@ -24,4 +24,3 @@
     priv: "{{ nocodb_db.name }}.*:ALL,GRANT"
     state: present
     login_unix_socket: /run/mysqld/mysqld.sock
-    
