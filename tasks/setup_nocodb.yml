@@ -11,13 +11,13 @@
     state: directory
     owner: "{{ nocodb_user.name }}"
     group: "{{ nocodb_user.group }}"
-    mode: 0775
+    mode: '0775'
   loop: "{{ nocodb_dir | dict2items }}"
 
 - name: Nocodb | Include redis role
   include_role:
-    name: geerlingguy.redis
-  when: "nocodb_redis_url is defined"
+    name: robertdebock.redis
+  when: "nocodb_config.NC_REDIS_URL is defined"
 
 - name: Nocodb | Download nocodb binary
   ansible.builtin.get_url:
