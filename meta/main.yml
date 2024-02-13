@@ -1,7 +1,4 @@
 ---
-dependencies:
-  - role: robertdebock.redis
-
 galaxy_info:
   role_name: nocodb
   author: chadek
