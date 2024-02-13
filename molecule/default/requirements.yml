@@ -1,3 +1,3 @@
 ---
-- src: geerlingguy.redis
+- src: robertdebock.redis
 - src: geerlingguy.postgresql
