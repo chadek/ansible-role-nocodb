@@ -1,3 +1,4 @@
+---
 - name: Nocodb | Install mariadb
   package:
     name: mariadb-server

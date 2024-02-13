@@ -9,10 +9,5 @@
       when: ansible_os_family == 'Debian'
       changed_when: false
 
-  tasks:
-    - name: "Include nocodb"
-      include_role:
-        name: "ansible-role-nocodb"
-
   roles:
     - role: chadek.nocodb
