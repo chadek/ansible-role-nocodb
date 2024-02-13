@@ -34,7 +34,7 @@ provisioner:
     host_vars:
       nocodb-sqlite:
         nocodb_backend: "sqlite"
-      nocodb-postgresql-13:
+      nocodb-postgresql:
         nocodb_backend: "pg"
         nocodb_db: { name: "nocodb", user: "nocodb", port: 5432 }
         nocodb_db_url: "pg://localhost:{{ nocodb_db.port }}?user={{ nocodb_db.user }}&password={{ vault_nocodb_db_password }}&d={{ nocodb_db.name }}"
