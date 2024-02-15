@@ -15,7 +15,7 @@
   loop: "{{ nocodb_dir | dict2items }}"
 
 - name: Nocodb | Include redis role
-  include_role:
+  ansible.builtin.include_role:
     name: robertdebock.redis
   when: "nocodb_config.NC_REDIS_URL is defined"
 
