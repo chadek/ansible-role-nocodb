@@ -1,3 +1,6 @@
 ---
-- include_tasks: backend.yml
-- include_tasks: setup_nocodb.yml
+- name: Nocodb | Include backend.yml
+  ansible.builtin.include_tasks: backend.yml
+
+- name: Nocodb | Include setup_nocodb.yml
+  ansible.builtin.include_tasks: setup_nocodb.yml

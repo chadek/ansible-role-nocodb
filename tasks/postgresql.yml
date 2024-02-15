@@ -1,4 +1,4 @@
 ---
 - name: Nocodb | Include postgres role
-  include_role:
+  ansible.builtin.include_role:
     name: geerlingguy.postgresql

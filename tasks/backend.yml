@@ -1,11 +1,13 @@
 ---
 - name: Nocodb | Install sqlite
-  package:
+  ansible.builtin.package:
     name: sqlite3
   when: "nocodb_backend == 'sqlite' "
 
-- include_tasks: postgresql.yml
+- name: Nocodb | Include postgresql.yml
+  ansible.builtin.include_tasks: postgresql.yml
   when: "nocodb_backend == 'pg' or nocodb_backend == 'postgresql'"
 
-- include_tasks: mariadb.yml
+- name: Nocodb | Include mariadb.yml
+  ansible.builtin.include_tasks: mariadb.yml
   when: "nocodb_backend == 'mariadb' or nocodb_backend == 'mysql'"
